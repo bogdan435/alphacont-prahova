@@ -3,6 +3,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Script from "next/script";
 
 type FormState = {
   name: string;
@@ -27,6 +28,9 @@ const SITE_URL = "https://contabilprahova.ro";
 
 const WHATSAPP_LINK =
   "https://wa.me/40721644296?text=Salut!%20Doresc%20o%20ofert%C4%83%20pentru%20servicii%20de%20contabilitate%20%C3%AEn%20Prahova.";
+
+const MAP_EMBED_URL =
+  "https://www.google.com/maps?q=Firma+Contabilitate+Campina+ALPHA+CONT+Birou+Contabil+Calea+Doftanei+194A+105600+C%C3%A2mpina&output=embed";
 
 const content = {
   ro: {
@@ -290,6 +294,9 @@ export default function HomeClient() {
         email: EMAIL,
         address: {
           "@type": "PostalAddress",
+          streetAddress: "Calea Doftanei 194A",
+          addressLocality: "Câmpina",
+          postalCode: "105600",
           addressRegion: "Prahova",
           addressCountry: "RO",
         },
@@ -471,8 +478,10 @@ export default function HomeClient() {
         }
       `}</style>
 
-      <script
+      <Script
+        id="structured-data"
         type="application/ld+json"
+        strategy="afterInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
@@ -483,14 +492,22 @@ export default function HomeClient() {
         Sari la conținut
       </a>
 
-      <div className="min-h-screen bg-white text-slate-900">
+      <div className="min-h-screen overflow-x-clip bg-white text-slate-900">
         <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur-xl">
+          <div className="border-b border-slate-200 bg-white">
+            <div className="mx-auto max-w-6xl px-4 py-2 text-center sm:px-6">
+              <div className="text-sm font-medium text-slate-600 sm:text-base">
+                {t.topBar}
+              </div>
+            </div>
+          </div>
+
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
-            <div className="flex items-center justify-between gap-4 py-4">
-              <div className="flex min-w-0 items-center gap-3">
+            <div className="flex items-center justify-between gap-3 py-4">
+              <div className="flex min-w-0 flex-1 items-center gap-3">
                 <Link
                   href="/"
-                  className="inline-flex items-center"
+                  className="inline-flex shrink-0 items-center"
                   aria-label="Pagina principală ALPHACONT GROUP"
                 >
                   <Image
@@ -499,31 +516,20 @@ export default function HomeClient() {
                     width={220}
                     height={64}
                     priority
-                    className="h-18 w-auto shrink-0 object-contain sm:h-22"
+                    className="h-14 w-auto shrink-0 object-contain sm:h-16"
                   />
                 </Link>
-
-                <div className="min-w-0">
-                  <div className="text-lg font-medium text-slate-600">{t.topBar}</div>
-                </div>
               </div>
 
               <nav
                 aria-label="Navigație principală"
                 className="hidden items-center gap-7 text-[15px] font-semibold text-slate-700 lg:flex"
               >
-                {navItems.slice(0, 5).map((item) => (
+                {navItems.map((item) => (
                   <a key={item.href} href={item.href} className="transition hover:text-slate-950">
                     {item.label}
                   </a>
                 ))}
-
-                <a
-                  href="#contact"
-                  className="inline-flex items-center justify-center rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800"
-                >
-                  Solicită consultație
-                </a>
               </nav>
 
               <button
@@ -532,7 +538,7 @@ export default function HomeClient() {
                 aria-expanded={mobileMenuOpen}
                 aria-controls="mobile-navigation"
                 onClick={() => setMobileMenuOpen((prev) => !prev)}
-                className="inline-flex items-center justify-center rounded-full border border-slate-300 px-3.5 py-3 text-slate-900 transition hover:bg-slate-100 md:hidden"
+                className="inline-flex shrink-0 items-center justify-center rounded-full border border-slate-300 px-3.5 py-3 text-slate-900 transition hover:bg-slate-100 lg:hidden"
               >
                 <MenuIcon open={mobileMenuOpen} />
               </button>
@@ -540,7 +546,7 @@ export default function HomeClient() {
           </div>
 
           {mobileMenuOpen && (
-            <div className="border-t border-slate-200 bg-white md:hidden">
+            <div className="border-t border-slate-200 bg-white lg:hidden">
               <nav
                 id="mobile-navigation"
                 aria-label="Navigație mobilă"
@@ -583,13 +589,13 @@ export default function HomeClient() {
         </header>
 
         <main id="main-content">
-          <section className="relative overflow-hidden bg-[radial-gradient(circle_at_top,rgba(37,99,235,0.18),transparent_30%),linear-gradient(135deg,#020617_0%,#0f172a_45%,#1e293b_100%)] px-6 pb-20 pt-20 text-white md:pb-28 md:pt-24">
+          <section className="relative overflow-hidden bg-[radial-gradient(circle_at_top,rgba(37,99,235,0.18),transparent_30%),linear-gradient(135deg,#020617_0%,#0f172a_45%,#1e293b_100%)] px-4 pb-16 pt-16 text-white sm:px-6 md:pb-28 md:pt-24">
             <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] opacity-30" />
 
             <div className="relative mx-auto max-w-6xl">
-              <div className="grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
-                <div>
-                  <div className="inline-flex items-center rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-medium text-slate-200 shadow-lg shadow-black/10 backdrop-blur">
+              <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
+                <div className="min-w-0">
+                  <div className="inline-flex max-w-full items-center rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-medium text-slate-200 shadow-lg shadow-black/10 backdrop-blur">
                     Expert contabil • Servicii financiar-contabile în Prahova
                   </div>
 
@@ -645,7 +651,7 @@ export default function HomeClient() {
                   </p>
                 </div>
 
-                <aside className="rounded-[28px] border border-white/10 bg-white/10 p-6 shadow-2xl backdrop-blur">
+                <aside className="w-full rounded-[28px] border border-white/10 bg-white/10 p-6 shadow-2xl backdrop-blur">
                   <div className="rounded-2xl border border-white/10 bg-slate-950/30 p-5">
                     <div className="text-sm font-semibold uppercase tracking-wide text-slate-300">
                       De ce ne aleg firmele
@@ -680,7 +686,7 @@ export default function HomeClient() {
             </div>
           </section>
 
-          <section id="services" className="px-6 py-20 md:py-24">
+          <section id="services" className="px-4 py-20 sm:px-6 md:py-24">
             <div className="mx-auto max-w-6xl">
               <div className="mx-auto max-w-2xl text-center">
                 <SectionEyebrow>Servicii</SectionEyebrow>
@@ -708,7 +714,7 @@ export default function HomeClient() {
             </div>
           </section>
 
-          <section id="about" className="bg-slate-50 px-6 py-20 md:py-24">
+          <section id="about" className="bg-slate-50 px-4 py-20 sm:px-6 md:py-24">
             <div className="mx-auto max-w-6xl">
               <div className="grid gap-12 lg:grid-cols-2 lg:items-start">
                 <div>
@@ -761,7 +767,7 @@ export default function HomeClient() {
             </div>
           </section>
 
-          <section id="resources" className="px-6 py-20 md:py-24">
+          <section id="resources" className="px-4 py-20 sm:px-6 md:py-24">
             <div className="mx-auto max-w-4xl text-center">
               <SectionEyebrow>Resurse utile</SectionEyebrow>
               <SectionTitle>{t.resourcesTitle}</SectionTitle>
@@ -794,7 +800,7 @@ export default function HomeClient() {
             </div>
           </section>
 
-          <section id="process" className="px-6 py-20 md:py-24">
+          <section id="process" className="px-4 py-20 sm:px-6 md:py-24">
             <div className="mx-auto max-w-6xl">
               <div className="mx-auto max-w-2xl text-center">
                 <SectionEyebrow>Proces simplu</SectionEyebrow>
@@ -818,7 +824,7 @@ export default function HomeClient() {
             </div>
           </section>
 
-          <section id="faq" className="bg-slate-50 px-6 py-20 md:py-24">
+          <section id="faq" className="bg-slate-50 px-4 py-20 sm:px-6 md:py-24">
             <div className="mx-auto max-w-4xl">
               <div className="text-center">
                 <SectionEyebrow>FAQ</SectionEyebrow>
@@ -866,7 +872,7 @@ export default function HomeClient() {
             </div>
           </section>
 
-          <section id="contact" className="bg-slate-900 px-6 py-20 text-white md:py-24">
+          <section id="contact" className="bg-slate-900 px-4 py-20 text-white sm:px-6 md:py-24">
             <div className="mx-auto max-w-6xl">
               <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
                 <div>
@@ -882,6 +888,19 @@ export default function HomeClient() {
                   <p className="mt-3 text-sm font-medium text-slate-400">
                     {t.responsePromise}
                   </p>
+
+                  <div className="mt-8 overflow-hidden rounded-2xl border border-slate-700 bg-white/5">
+                    <iframe
+                      title="Locație ALPHACONT GROUP"
+                      src={MAP_EMBED_URL}
+                      width="100%"
+                      height="320"
+                      style={{ border: 0 }}
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      allowFullScreen
+                    />
+                  </div>
 
                   <a
                     href={`tel:${PHONE_LINK}`}
@@ -1041,7 +1060,7 @@ export default function HomeClient() {
           </section>
         </main>
 
-        <footer className="bg-slate-950 px-6 py-10 text-white">
+        <footer className="bg-slate-950 px-4 py-10 text-white sm:px-6">
           <div className="mx-auto max-w-6xl">
             <div className="grid gap-8 text-center md:grid-cols-3 md:text-left">
               <div>
@@ -1094,10 +1113,10 @@ export default function HomeClient() {
           </a>
         </div>
 
-        <div className="sticky bottom-4 z-40 px-4 md:hidden">
+        <div className="fixed bottom-4 left-0 right-0 z-40 flex justify-center px-4 lg:hidden">
           <a
             href={`tel:${PHONE_LINK}`}
-            className="mx-auto flex max-w-md items-center justify-center rounded-full bg-slate-950 px-6 py-4 text-base font-semibold text-white shadow-2xl"
+            className="w-full max-w-md rounded-full bg-slate-950 px-6 py-4 text-center text-base font-semibold text-white shadow-2xl"
           >
             Sună acum: {PHONE_DISPLAY}
           </a>

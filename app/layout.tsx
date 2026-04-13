@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 
 const SITE_URL = "https://contabilprahova.ro";
@@ -84,6 +85,18 @@ export default function RootLayout({
   return (
     <html lang="ro" suppressHydrationWarning>
       <body className="min-h-screen bg-white text-slate-900 antialiased">
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-JYCVFNBZ6S"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-JYCVFNBZ6S');
+          `}
+        </Script>
         {children}
       </body>
     </html>
