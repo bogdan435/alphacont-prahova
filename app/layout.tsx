@@ -86,17 +86,18 @@ export default function RootLayout({
     <html lang="ro" suppressHydrationWarning>
       <body className="min-h-screen bg-white text-slate-900 antialiased">
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-JYCVFNBZ6S"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-JYCVFNBZ6S');
-          `}
-        </Script>
+  src="https://www.googletagmanager.com/gtag/js?id=G-SSY1RPSFG5"
+  strategy="afterInteractive"
+/>
+<Script id="google-analytics" strategy="afterInteractive">
+  {`
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-SSY1RPSFG5');
+  `}
+</Script>
+
         {children}
       </body>
     </html>
