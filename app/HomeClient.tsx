@@ -244,6 +244,23 @@ function inputClass(hasError?: boolean) {
   }`;
 }
 
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void;
+  }
+}
+
+function trackLead(formName = "homepage_contact") {
+  if (typeof window === "undefined") return;
+  if (typeof window.gtag !== "function") return;
+
+  window.gtag("event", "generate_lead", {
+    form_name: formName,
+    method: "website_form",
+    page_location: window.location.href,
+  });
+}
+
 export default function HomeClient() {
   const t = content.ro;
 
@@ -380,6 +397,8 @@ export default function HomeClient() {
       if (!res.ok) {
         throw new Error(data?.error || "A apărut o eroare la trimitere.");
       }
+
+      trackLead("homepage_contact");
 
       setSubmitError(false);
       setSubmitMessage("Mesajul a fost trimis cu succes. Revenim cât mai rapid.");
